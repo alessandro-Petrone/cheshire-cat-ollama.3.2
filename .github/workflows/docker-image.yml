@@ -21,4 +21,5 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: false
-        tags: alessandro-petrone/cheshire-cat-ollama-3.2:latest
+        tags: alessandro-petrone/cheshire-cat-ollama-3-2:latest
+
