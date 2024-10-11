@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  cheshire-cat-core:
+    image: ghcr.io/cheshire-cat-ai/core:latest
+    container_name: cheshire_cat_core
+    depends_on:
+      - cheshire-cat-vector-memory
+      - ollama
+    environment:
+      - CORE_HOST=cheshire_cat_core
+      - CORE_PORT=1865
+      - QDRANT_HOST=cheshire_cat_vector_memory
+      - QDRANT_PORT=6333
+    ports:
+      - "1865:80"
+    networks:
+      - cat_network
+
+  cheshire-cat-vector-memory:
+    image: qdrant/qdrant:latest
+    container_name: cheshire_cat_vector_memory
+    networks:
+      - cat_network
+
+  ollama:
+    container_name: ollama_cat
+    image: ollama/ollama:latest
+    expose:
+      - "11434"
+    networks:
+      - cat_network
+
+networks:
+  cat_network:
+    driver: bridge
+
